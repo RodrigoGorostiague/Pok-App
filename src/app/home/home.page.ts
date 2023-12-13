@@ -25,26 +25,22 @@ export class HomePage implements OnInit {
   }
 
   getPokemons() {
-    this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
+    this.pokeListSvc.watchRandomPokemonList(this.limit, this.offset).subscribe({
       next: (result) => {
-        const pokemonListShuffle = result.data.species.sort(() => Math.random() - 0.5);
-        this.pokemons.set(pokemonListShuffle)
-      },
-      complete: () => {
-        
+        this.pokemons.set(result);
       },
       error: (err) => {
         console.log(err);
       },
-    });
+    })
   }
 
   onIonInfinite(ev: Event) {
     this.offset += this.limit;
     this.limit += 10;
-    this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
+    this.pokeListSvc.watchRandomPokemonList(this.limit, this.offset).subscribe({
       next: (result) => {
-        this.pokemons.set(result.data.species);
+        this.pokemons.update((pokemons) => pokemons.concat(result));
         (ev as InfiniteScrollCustomEvent).target.complete()
       },
       error: (err) => {
@@ -52,12 +48,13 @@ export class HomePage implements OnInit {
       },
     });    
   }
+
   doRefresh(ev: any) {
     this.offset = 0;
     this.limit = 10;
-    this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
+    this.pokeListSvc.watchRandomPokemonList(this.limit, this.offset).subscribe({
       next: (result) => {
-        this.pokemons.set(result.data.species);
+        this.pokemons.set(result);
         ev.target.complete();
       },
       error: (err) => {
