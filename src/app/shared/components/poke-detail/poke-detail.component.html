@@ -1,0 +1,64 @@
+@if (pokemon() != null) {
+  <a [routerLink]="['/home']">Return to Pokeon List</a>
+  <ion-card class="custom-card">
+    <img class="centered-image" alt="{{pokemon()?.name}}" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/' + pokemon()?.id + '.svg'" />
+    <ion-card-header>
+      <ion-card-title class="custom-title">{{ pokemon()?.name | titlecase }}</ion-card-title>
+      <ion-card-subtitle class="custom-subtitle">{{pokemon()?.flavorText?.[0]?.flavor_text }}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content class="custom-content">
+      <p>Habitat: {{ pokemon()?.habitat?.name | titlecase }}</p>
+      <p>Type: 
+        @for (types of pokemon()?.pokemon?.nodes?.[0]?.types; track types; let i = $index) {
+          <span [ngClass]="{'grass': types.type.name === 'grass',
+                            'poison': types.type.name === 'poison',
+                            'fire': types.type.name === 'fire',
+                            'flying': types.type.name === 'flying',
+                            'water': types.type.name === 'water',
+                            'bug': types.type.name === 'bug',
+                            'normal': types.type.name === 'normal',
+                            'electric': types.type.name === 'electric',
+                            'ground': types.type.name === 'ground',
+                            'fairy': types.type.name === 'fairy',
+                            'fighting': types.type.name === 'fighting',
+                            'psychic': types.type.name === 'psychic',
+                            'rock': types.type.name === 'rock',
+                            'steel': types.type.name === 'steel',
+                            'ice': types.type.name === 'ice',
+                            'ghost': types.type.name === 'ghost',
+                            'dragon': types.type.name === 'dragon',
+                            'dark': types.type.name === 'dark'
+
+        }">
+            {{ types.type.name | titlecase }}
+          </span>
+          {{ pokemon()?.pokemon?.nodes?.[0]?.types?.length === i-1 ? ', ' : '' }}
+        }
+        </p>
+        <p>Height: {{ pokemon()?.pokemon?.nodes?.[0]?.height}}0cm. Weight: {{ pokemon()?.pokemon?.nodes?.[0]?.weight}}g.</p>
+        
+        <p>Abilities: 
+          @for (ability of pokemon()?.pokemon?.nodes?.[0]?.abilities?.nodes; track ability; let i = $index) {
+            <span>
+              {{ ability.ability.name | titlecase }}
+              {{ pokemon()?.pokemon?.nodes?.[0]?.abilities?.nodes?.length === i-1 ? ', ' : '.' }}
+            </span>
+          }
+        </p>
+
+      <ion-grid class="stats-conteiner">
+        <p>Stats:</p>
+        <ion-row>
+          @for (stats of pokemon()?.pokemon?.nodes?.[0]?.stats; track stats) {
+            <ion-col size="4"  class="stat-item">
+              <p>{{stats.stat.name | titlecase}}: {{ stats.base_stat }}</p>
+            </ion-col>
+          }
+        </ion-row>
+      </ion-grid>      
+    </ion-card-content>
+  </ion-card>
+  
+  
+}
