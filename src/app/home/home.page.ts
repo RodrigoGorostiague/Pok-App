@@ -27,7 +27,8 @@ export class HomePage implements OnInit {
   getPokemons() {
     this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
       next: (result) => {
-        this.pokemons.set(result.data.species);
+        console.log(result.data.species);
+        this.pokemons.set(result.data.species.sort(() => Math.random() - 0.5));
       },
       error: (err) => {
         console.log(err);
@@ -40,7 +41,7 @@ export class HomePage implements OnInit {
     this.limit += 10;
     this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
       next: (result) => {
-        this.pokemons.set(this.shuffleArray(result.data.species));
+        this.pokemons.set(result.data.species.sort(() => Math.random() - 0.5));
         (ev as InfiniteScrollCustomEvent).target.complete()
       },
       error: (err) => {
@@ -48,15 +49,12 @@ export class HomePage implements OnInit {
       },
     });    
   }
-shuffleArray(array: any[]): any[] {
-    return array.sort(() => Math.random() - 0.5);
-  }
   doRefresh(ev: any) {
     this.offset = 0;
     this.limit = 10;
     this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
       next: (result) => {
-        this.pokemons.set(result.data.species);
+        this.pokemons.set(result.data.species.sort(() => Math.random() - 0.5));
         ev.target.complete();
       },
       error: (err) => {
