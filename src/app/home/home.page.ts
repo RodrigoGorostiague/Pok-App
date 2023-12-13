@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
 
   private pokeListSvc = inject(GetPokemonListService);
   pokemons = signal<Species[]>([])
-  limit = 10;
+  limit = 20;
   offset = 0;
 
   ngOnInit(): void {

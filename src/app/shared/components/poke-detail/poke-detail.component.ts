@@ -4,13 +4,14 @@ import { GetPokemonService } from '../../services/get-pokemon.service';
 import { Species } from '../../schemas/Species.schema';
 import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
 import { NgClass, TitleCasePipe } from '@angular/common';
+import { FormatMeasurePipe } from '../../pipes/format-measure.pipe';
 
 @Component({
   selector: 'app-poke-detail',
   templateUrl: './poke-detail.component.html',
   styleUrls: ['./poke-detail.component.scss'],
   standalone: true,
-  imports: [IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol, TitleCasePipe, NgClass, RouterLink],
+  imports: [IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol, TitleCasePipe, NgClass, RouterLink, FormatMeasurePipe],
 })
 export class PokeDetailComponent  implements OnInit { 
   pokemon = signal<Species | null>(null);

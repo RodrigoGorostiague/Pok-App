@@ -36,7 +36,7 @@
           {{ pokemon()?.pokemon?.nodes?.[0]?.types?.length === i-1 ? ', ' : '' }}
         }
         </p>
-        <p>Height: {{ pokemon()?.pokemon?.nodes?.[0]?.height}}0cm. Weight: {{ pokemon()?.pokemon?.nodes?.[0]?.weight}}g.</p>
+        <p>Height: {{ pokemon()?.pokemon?.nodes?.[0]?.height | formatMeasure: 'm'}}. Weight: {{ pokemon()?.pokemon?.nodes?.[0]?.weight | formatMeasure: 'kg'}}.</p>
         
         <p>Abilities: 
           @for (ability of pokemon()?.pokemon?.nodes?.[0]?.abilities?.nodes; track ability; let i = $index) {
