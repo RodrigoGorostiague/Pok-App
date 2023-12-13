@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
   getPokemons() {
     this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
       next: (result) => {
-        this.pokemons.set(this.shuffleArray(result.data.species));
+        this.pokemons.set(result.data.species);
       },
       error: (err) => {
         console.log(err);
