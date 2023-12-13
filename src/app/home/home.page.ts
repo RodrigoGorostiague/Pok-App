@@ -27,14 +27,16 @@ export class HomePage implements OnInit {
   getPokemons() {
     this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
       next: (result) => {
-        this.pokemons.set(result.data.species);
+        const pokemonListShuffle = result.data.species.sort(() => Math.random() - 0.5);
+        this.pokemons.set(pokemonListShuffle)
+      },
+      complete: () => {
+        
       },
       error: (err) => {
         console.log(err);
       },
     });
-    const pokemonListShuffle = this.pokemons().sort(() => Math.random() - 0.5);
-    this.pokemons.set(pokemonListShuffle)
   }
 
   onIonInfinite(ev: Event) {
