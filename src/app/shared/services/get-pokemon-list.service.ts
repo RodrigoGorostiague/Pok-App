@@ -29,7 +29,8 @@ export class GetPokemonListService extends Query<SpeciesListResponse> {
     return this.watch({ limit, offset }).valueChanges.pipe(
       map((response) => {
         const pokemonList = response.data.species;
-        return this.randomizePokemonList(pokemonList);
+        const copyPokemonList = [...pokemonList];
+        return copyPokemonList.sort(() => Math.random() - 0.5);
       })
     );
   }
