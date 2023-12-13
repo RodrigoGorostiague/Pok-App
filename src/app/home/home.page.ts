@@ -28,7 +28,7 @@ export class HomePage implements OnInit {
     this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
       next: (result) => {
         console.log(result.data.species);
-        this.pokemons.set(result.data.species.sort(() => Math.random() - 0.5));
+        this.pokemons.set(result.data.species);
       },
       error: (err) => {
         console.log(err);
@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
     this.limit += 10;
     this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
       next: (result) => {
-        this.pokemons.set(result.data.species.sort(() => Math.random() - 0.5));
+        this.pokemons.set(result.data.species);
         (ev as InfiniteScrollCustomEvent).target.complete()
       },
       error: (err) => {
@@ -54,7 +54,7 @@ export class HomePage implements OnInit {
     this.limit = 10;
     this.pokeListSvc.watch({limit:this.limit, offset:0}).valueChanges.subscribe({
       next: (result) => {
-        this.pokemons.set(result.data.species.sort(() => Math.random() - 0.5));
+        this.pokemons.set(result.data.species);
         ev.target.complete();
       },
       error: (err) => {
